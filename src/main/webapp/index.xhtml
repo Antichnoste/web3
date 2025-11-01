@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>мяумяумяу</title>
+    <h:outputStylesheet library="css" name="index.css">
+        <f:param name="v" value="#{settings.resourceVersion}"/>
+    </h:outputStylesheet>
+    <h:outputScript library="js" name="clock.js" target="body">
+        <f:param name="v" value="#{settings.resourceVersion}"/>
+    </h:outputScript>
+</h:head>
+<h:body>
+
+    <div class="header">
+        <span><b>ФИО:</b> <h:outputText value="#{settings.studentFio}"/></span>
+        <span><b>Группа:</b> <h:outputText value="#{settings.group}"/></span>
+        <span><b>Вариант:</b> <h:outputText value="#{settings.variant}"/></span>
+    </div>
+
+    <hr/>
+
+    <div id="clock-container" data-period-sec="#{settings.clockPeriodSec}">
+        <p>
+            <b>Текущее время:</b>
+            <span id="clock">Loading...</span>
+        </p>
+    </div>
+
+    <h:form>
+        <h:commandButton value="Перейти к приложению" action="toApp"/>
+    </h:form>
+
+</h:body>
+</html>
