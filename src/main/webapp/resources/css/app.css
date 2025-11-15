@@ -19,7 +19,6 @@ h2, h3 {
     margin-bottom: 15px;
 }
 
-/* Стили для формы */
 .ui-panelgrid {
     width: 100%;
 }
@@ -29,8 +28,9 @@ h2, h3 {
     vertical-align: top;
 }
 
-.ui-selectonemenu, .ui-inputtext {
-    width: 100% !important;
+.ui-selectonemenu,
+.ui-inputtext {
+    width: 100%;
     background: #4a4a4a;
     border: 1px solid #5a5a5a;
     color: #ffffff;
@@ -43,29 +43,27 @@ h2, h3 {
     margin-right: 15px;
 }
 
-/* Стили для кнопок */
 .ui-button {
-    background: #2196F3 !important;
-    color: white !important;
-    border: none !important;
-    padding: 10px 20px !important;
-    border-radius: 5px !important;
-    margin-right: 10px !important;
+    background: #2196F3;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-right: 10px;
 }
 
-.ui-button-secondary {
-    background: #666666 !important;
+.ui-button.ui-button-secondary {
+    background: #666666;
 }
 
 .ui-button:hover {
-    background: #1976D2 !important;
+    background: #1976D2;
 }
 
-.ui-button-secondary:hover {
-    background: #555555 !important;
+.ui-button.ui-button-secondary:hover {
+    background: #555555;
 }
 
-/* Стили для графика */
 .graph-wrap {
     background: #3a3a3a;
     padding: 20px;
@@ -95,7 +93,6 @@ h2, h3 {
     stroke-width: 1;
 }
 
-/* Стили для точек на графике */
 circle.hit {
     fill: #4CAF50;
     stroke: #ffffff;
@@ -106,44 +103,41 @@ circle.miss {
     stroke: #ffffff;
 }
 
-/* Стили для таблицы результатов */
 .ui-datatable {
     background: #3a3a3a;
     border: 1px solid #4a4a4a;
     border-radius: 8px;
 }
 
-.ui-datatable-header {
-    background: #4a4a4a !important;
-    color: #ffffff !important;
-    border: none !important;
+.ui-datatable .ui-datatable-header {
+    background: #4a4a4a;
+    color: #ffffff;
+    border: none;
 }
 
-.ui-datatable-data tr {
+.ui-datatable .ui-datatable-data tr {
     background: #3a3a3a;
     color: #ffffff;
 }
 
-.ui-datatable-data tr:nth-child(even) {
+.ui-datatable .ui-datatable-data tr:nth-child(even) {
     background: #404040;
 }
 
-.ui-datatable-data td {
-    border-color: #4a4a4a !important;
-    color: #ffffff !important;
+.ui-datatable .ui-datatable-data td {
+    border-color: #4a4a4a;
+    color: #ffffff;
 }
 
-.ui-datatable-scrollable-body {
+.ui-datatable .ui-datatable-scrollable-body {
     background: #3a3a3a;
 }
 
-/* Сообщения об ошибках */
 .ui-message {
     color: #f44336;
     font-size: 0.9em;
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
     body {
         margin: 10px;
