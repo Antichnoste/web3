@@ -6,7 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <h:head>
-    <title>мямямяму</title>
+    <title>Лаболаторная работа №3</title>
     <h:outputStylesheet library="css" name="app.css"/>
     <h:outputScript library="js" name="graph.js" target="body"/>
 </h:head>
@@ -20,9 +20,9 @@
 
             <h:panelGroup>
                 <h:outputText value="X:"/><br/>
-                <p:selectOneRadio id="x" value="#{form.x}" layout="grid" columns="5">
+                <p:selectOneMenu id="x" value="#{form.x}" layout="grid">
                     <f:selectItems value="#{settings.XOptions}"/>
-                </p:selectOneRadio>
+                </p:selectOneMenu>
                 <p:message for="x"/>
             </h:panelGroup>
 

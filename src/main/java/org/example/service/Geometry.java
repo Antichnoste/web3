@@ -1,7 +1,9 @@
 package org.example.service;
 
 public final class Geometry {
+
     private Geometry() {}
+
     public static boolean hit(double x, double y, double r) {
         if (!(r > 0)) return false;
 

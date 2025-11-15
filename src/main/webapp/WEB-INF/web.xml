@@ -5,7 +5,11 @@
                              http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-    <display-name>area-app</display-name>
+    <display-name>lab3</display-name>
+    <context-param>
+        <param-name>javax.faces.CONFIG_FILES</param-name>
+        <param-value>/WEB-INF/navigation.xml</param-value>
+    </context-param>
 
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>

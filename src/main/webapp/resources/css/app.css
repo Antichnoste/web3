@@ -1,22 +1,161 @@
 body {
-    background-image:
-            linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)),
-            url("#{resource['images/background.jpg']}");
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+    background-color: #2d2d2d;
+    color: #ffffff;
 }
-.hit {
-    fill: #28a745;
-}
-.miss {
-    fill: #dc3545;
-}
+
 .block {
-    background-color: rgba(255, 255, 255, 0.7);
-    padding: 15px;
+    background: #3a3a3a;
+    padding: 20px;
     border-radius: 8px;
     margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+h2, h3 {
+    color: #ffffff;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+/* Стили для формы */
+.ui-panelgrid {
+    width: 100%;
+}
+
+.ui-panelgrid td {
+    padding: 10px;
+    vertical-align: top;
+}
+
+.ui-selectonemenu, .ui-inputtext {
+    width: 100% !important;
+    background: #4a4a4a;
+    border: 1px solid #5a5a5a;
+    color: #ffffff;
+    border-radius: 4px;
+    padding: 8px;
+}
+
+.ui-selectoneradio label {
+    color: #ffffff;
+    margin-right: 15px;
+}
+
+/* Стили для кнопок */
+.ui-button {
+    background: #2196F3 !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 20px !important;
+    border-radius: 5px !important;
+    margin-right: 10px !important;
+}
+
+.ui-button-secondary {
+    background: #666666 !important;
+}
+
+.ui-button:hover {
+    background: #1976D2 !important;
+}
+
+.ui-button-secondary:hover {
+    background: #555555 !important;
+}
+
+/* Стили для графика */
+.graph-wrap {
+    background: #3a3a3a;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+#graphSvg {
+    background: #2d2d2d;
+    border-radius: 8px;
+    border: 2px solid #4a4a4a;
+}
+
+#graphSvg line {
+    stroke: #ffffff;
+}
+
+#graphSvg text {
+    fill: #ffffff;
+}
+
+#area path {
+    fill: #4CAF50;
+    fill-opacity: 0.3;
+    stroke: #4CAF50;
+    stroke-width: 1;
+}
+
+/* Стили для точек на графике */
+circle.hit {
+    fill: #4CAF50;
+    stroke: #ffffff;
+}
+
+circle.miss {
+    fill: #f44336;
+    stroke: #ffffff;
+}
+
+/* Стили для таблицы результатов */
+.ui-datatable {
+    background: #3a3a3a;
+    border: 1px solid #4a4a4a;
+    border-radius: 8px;
+}
+
+.ui-datatable-header {
+    background: #4a4a4a !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+.ui-datatable-data tr {
+    background: #3a3a3a;
+    color: #ffffff;
+}
+
+.ui-datatable-data tr:nth-child(even) {
+    background: #404040;
+}
+
+.ui-datatable-data td {
+    border-color: #4a4a4a !important;
+    color: #ffffff !important;
+}
+
+.ui-datatable-scrollable-body {
+    background: #3a3a3a;
+}
+
+/* Сообщения об ошибках */
+.ui-message {
+    color: #f44336;
+    font-size: 0.9em;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    body {
+        margin: 10px;
+    }
+
+    .ui-panelgrid td {
+        display: block;
+        width: 100%;
+    }
+
+    .ui-selectoneradio .ui-grid-row > div {
+        display: inline-block;
+        margin-right: 10px;
+    }
 }

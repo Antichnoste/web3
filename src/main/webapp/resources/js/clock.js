@@ -1,39 +1,52 @@
-(function() {
-    'use strict';
+class AnalogClock {
+    constructor() {
+        this.hourHand = document.getElementById('hour-hand');
+        this.minuteHand = document.getElementById('minute-hand');
+        this.secondHand = document.getElementById('second-hand');
+        this.digitalTimeElement = document.getElementById('digital-time');
+        this.container = document.getElementById('clock-container');
 
-    function updateClock() {
-        var clockElement = document.getElementById('clock');
-        if (clockElement) {
-            var now = new Date();
-            var formattedTime = now.getFullYear() + '-' +
-                ('0' + (now.getMonth() + 1)).slice(-2) + '-' +
-                ('0' + now.getDate()).slice(-2) + ' ' +
-                ('0' + now.getHours()).slice(-2) + ':' +
-                ('0' + now.getMinutes()).slice(-2) + ':' +
-                ('0' + now.getSeconds()).slice(-2);
-            clockElement.textContent = formattedTime;
-        }
+        this.init();
     }
 
-    function startClock() {
-        var clockContainer = document.getElementById('clock-container');
-        if (!clockContainer) return;
+    init() {
+        if (!this.container) return;
 
-        var periodSeconds = parseInt(clockContainer.getAttribute('data-period-sec'), 10);
-        var updateInterval = 13;
+        const periodSeconds = parseInt(this.container.getAttribute('data-period-sec'), 10);
 
-        if (isFinite(periodSeconds) && periodSeconds > 0) {
-            updateInterval = periodSeconds;
+        let updateInterval = 1000;
+        if (isFinite(periodSeconds) && periodSeconds > 0){
+            updateInterval= periodSeconds * 1000
         }
 
-        updateClock();
-        setInterval(updateClock, updateInterval * 1000);
+        this.update();
+        setInterval(() => this.update(), updateInterval);
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', startClock);
-    } else {
-        startClock();
-    }
+    update() {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const seconds = now.getSeconds();
 
-})();
+        if (this.hourHand) {
+            this.hourHand.style.transform = `translateX(-50%) rotate(${(hours % 12) * 30 + minutes * 0.5}deg)`;
+        }
+        if (this.minuteHand) {
+            this.minuteHand.style.transform = `translateX(-50%) rotate(${minutes * 6 + seconds * 0.1}deg)`;
+        }
+        if (this.secondHand) {
+            this.secondHand.style.transform = `translateX(-50%) rotate(${seconds * 6}deg)`;
+        }
+
+        if (this.digitalTimeElement) {
+            this.digitalTimeElement.textContent =
+                `${now.getFullYear()}-${('0' + (now.getMonth() + 1)).slice(-2)}-${('0' + now.getDate()).slice(-2)} ` +
+                `${('0' + hours).slice(-2)}:${('0' + minutes).slice(-2)}:${('0' + seconds).slice(-2)}`;
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    new AnalogClock();
+});

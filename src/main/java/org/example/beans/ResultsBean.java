@@ -1,19 +1,22 @@
 package org.example.beans;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.example.model.HitEntity;
 import org.example.service.JpaService;
 
 import java.util.List;
 
+@Setter
 public class ResultsBean{
 
     private JpaService jpa;
-    private int maxRows = 2000;
-    private volatile List<HitEntity> data;
 
-    public void setJpa(JpaService jpa) { this.jpa = jpa; }
-    public int getMaxRows() { return maxRows; }
-    public void setMaxRows(int maxRows) { this.maxRows = maxRows; }
+    @Getter
+    private int maxRows = 2000;
+
+    @Getter
+    private List<HitEntity> data;
 
     public void reload() {
         data = jpa.listLatest(maxRows);

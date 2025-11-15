@@ -1,5 +1,7 @@
 package org.example.beans;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.example.service.Geometry;
 import org.example.service.JpaService;
 
@@ -7,6 +9,8 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
+@Setter
+@Getter
 public class FormBean implements Serializable {
 
     private Integer x;
@@ -37,24 +41,4 @@ public class FormBean implements Serializable {
         jpa.insertResult(px, py, pr, hit, new Date());
         results.reload();
     }
-
-    public Integer getX() { return x; }
-    public void setX(Integer x) { this.x = x; }
-
-    public Double getY() { return y; }
-    public void setY(Double y) { this.y = y; }
-
-    public Double getR() { return r; }
-    public void setR(Double r) { this.r = r; }
-
-    public Double getGraphX() { return graphX; }
-    public void setGraphX(Double graphX) { this.graphX = graphX; }
-
-    public Double getGraphY() { return graphY; }
-    public void setGraphY(Double graphY) { this.graphY = graphY; }
-
-    public void setJpa(JpaService jpa) { this.jpa = jpa; }
-    public void setResults(ResultsBean results) { this.results = results; }
-    public SettingsBean getSettings() { return settings; }
-    public void setSettings(SettingsBean settings) { this.settings = settings; }
 }
