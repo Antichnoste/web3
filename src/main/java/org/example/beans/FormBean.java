@@ -7,6 +7,7 @@ import org.example.service.JpaService;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Setter
@@ -38,7 +39,7 @@ public class FormBean implements Serializable {
 
     private void persistAndRefresh(double px, double py, double pr) {
         boolean hit = Geometry.hit(px, py, pr);
-        jpa.insertResult(px, py, pr, hit, new Date());
+        jpa.insertResult(px, py, pr, hit, LocalTime.now());
         results.reload();
     }
 }

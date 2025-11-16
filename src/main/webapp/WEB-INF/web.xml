@@ -6,9 +6,10 @@
          version="3.1">
 
     <display-name>lab3</display-name>
+
     <context-param>
         <param-name>javax.faces.CONFIG_FILES</param-name>
-        <param-value>/WEB-INF/navigation.xml</param-value>
+        <param-value>/WEB-INF/navigation.faces-config.xml</param-value>
     </context-param>
 
     <servlet>
@@ -25,20 +26,4 @@
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
 
-    <filter>
-        <filter-name>CharacterEncodingFilter</filter-name>
-        <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
-        <init-param>
-            <param-name>encoding</param-name>
-            <param-value>UTF-8</param-value>
-        </init-param>
-        <init-param>
-            <param-name>ignore</param-name>
-            <param-value>false</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>CharacterEncodingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
 </web-app>

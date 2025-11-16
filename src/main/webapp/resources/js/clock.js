@@ -12,7 +12,7 @@ class AnalogClock {
     init() {
         if (!this.container) return;
 
-        const periodSeconds = parseInt(this.container.getAttribute('data-period-sec'), 10);
+        const periodSeconds = parseInt(this.container.getAttribute('data-period-sec'));
 
         let updateInterval = 1000;
         if (isFinite(periodSeconds) && periodSeconds > 0){

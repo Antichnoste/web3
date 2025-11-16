@@ -2,14 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:view encoding="UTF-8" locale="ru">
 <h:head>
     <title>Лабораторная работа №3</title>
-    <h:outputStylesheet library="css" name="index.css">
-        <f:param name="v" value="#{settings.resourceVersion}"/>
-    </h:outputStylesheet>
-    <h:outputScript library="js" name="clock.js" target="body">
-        <f:param name="v" value="#{settings.resourceVersion}"/>
-    </h:outputScript>
+    <h:outputStylesheet library="css" name="index.css"/>
+    <h:outputScript library="js" name="clock.js" target="body"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </h:head>
 <h:body>
@@ -55,4 +53,5 @@
     </div>
 
 </h:body>
+</f:view>
 </html>

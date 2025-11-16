@@ -10,60 +10,6 @@
         <managed-bean-name>settings</managed-bean-name>
         <managed-bean-class>org.example.beans.SettingsBean</managed-bean-class>
         <managed-bean-scope>application</managed-bean-scope>
-
-        <managed-property>
-            <property-name>XOptions</property-name>
-            <list-entries>
-                <value-class>java.lang.Double</value-class>
-                <value>-2</value>
-                <value>-1.5</value>
-                <value>-1.0</value>
-                <value>-0.5</value>
-                <value>0.0</value>
-                <value>0.5</value>
-                <value>1.5</value>
-            </list-entries>
-        </managed-property>
-
-        <managed-property>
-            <property-name>ROptions</property-name>
-            <list-entries>
-                <value-class>java.lang.Integer</value-class>
-                <value>1</value>
-                <value>2</value>
-                <value>3</value>
-                <value>4</value>
-                <value>5</value>
-            </list-entries>
-        </managed-property>
-
-        <managed-property><property-name>YMin</property-name><value>-5</value></managed-property>
-        <managed-property><property-name>YMax</property-name><value>3</value></managed-property>
-
-        <managed-property>
-            <property-name>clockPeriodSec</property-name>
-            <value>9</value>
-        </managed-property>
-
-        <managed-property>
-            <property-name>studentFio</property-name>
-            <value> Караганов Павел</value>
-        </managed-property>
-
-        <managed-property>
-            <property-name>group</property-name>
-            <value> P3210</value>
-        </managed-property>
-
-        <managed-property>
-            <property-name>variant</property-name>
-            <value> 8765</value>
-        </managed-property>
-
-        <managed-property>
-            <property-name>resourceVersion</property-name>
-            <value>2025.10.17-02</value>
-        </managed-property>
     </managed-bean>
 
 <!-->Бин для JPA, для отображения сущности на бд-->
@@ -111,26 +57,5 @@
         <validator-id>yValidator</validator-id>
         <validator-class>org.example.validator.YValidator</validator-class>
     </validator>
-
-<!--Я не могу вынести навигацию в отдельный файл так как
-    JSF не поддерживает подключение дополнительных XML-файлов с навигацией через faces-config.xml
-    Можно только либо так как сейчас, либо использовать CDI и аннотации (а это не по ТЗ)   -->
-    <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>toApp</from-outcome>
-            <to-view-id>/app.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/app.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>toIndex</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-    </navigation-rule>
 
 </faces-config>

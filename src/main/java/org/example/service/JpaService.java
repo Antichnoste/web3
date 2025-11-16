@@ -3,6 +3,7 @@ package org.example.service;
 import org.example.model.HitEntity;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class JpaService {
     }
 
 
-    public void insertResult(double x, double y, double r, boolean hit, Date createdAt) {
+    public void insertResult(double x, double y, double r, boolean hit, LocalTime createdAt) {
         EntityManager em = em();
         EntityTransaction tx = em.getTransaction();
         try {
