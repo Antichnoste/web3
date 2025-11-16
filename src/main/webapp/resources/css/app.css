@@ -1,67 +1,18 @@
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
-    padding: 0;
     background-color: #2d2d2d;
     color: #ffffff;
 }
 
-.block {
-    background: #3a3a3a;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 h2, h3 {
-    color: #ffffff;
-    margin-top: 0;
-    margin-bottom: 15px;
-}
-
-.ui-panelgrid {
-    width: 100%;
-}
-
-.ui-panelgrid td {
-    padding: 10px;
-    vertical-align: top;
-}
-
-.ui-selectonemenu,
-.ui-inputtext {
-    width: 100%;
-    background: #4a4a4a;
-    border: 1px solid #5a5a5a;
-    color: #ffffff;
-    border-radius: 4px;
-    padding: 8px;
-}
-
-.ui-selectoneradio label {
-    color: #ffffff;
-    margin-right: 15px;
-}
-
-.ui-button {
-    background: #2196F3;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin-right: 10px;
-}
-
-.ui-button.ui-button-secondary {
-    background: #666666;
-}
-
-.ui-button:hover {
-    background: #1976D2;
-}
-
-.ui-button.ui-button-secondary:hover {
-    background: #555555;
+    text-align: center;
+    margin: 20px 0;
 }
 
 .graph-wrap {
@@ -78,64 +29,124 @@ h2, h3 {
     border: 2px solid #4a4a4a;
 }
 
-#graphSvg line {
-    stroke: #ffffff;
-}
-
-#graphSvg text {
-    fill: #ffffff;
-}
-
-#area path {
+.hit {
     fill: #4CAF50;
-    fill-opacity: 0.3;
-    stroke: #4CAF50;
-    stroke-width: 1;
 }
-
-circle.hit {
-    fill: #4CAF50;
-    stroke: #ffffff;
-}
-
-circle.miss {
+.miss {
     fill: #f44336;
-    stroke: #ffffff;
+}
+
+.block {
+    background-color: #3a3a3a;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border: 1px solid #4a4a4a;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.input-group {
+    background: #3a3a3a;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #4a4a4a;
+}
+
+.input-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.ui-selectonemenu,
+.ui-inputtext {
+    width: 100%;
+    background: #4a4a4a;
+    border: 1px solid #5a5a5a;
+    color: white;
+    border-radius: 4px;
+    padding: 8px;
+}
+
+.radio-group {
+    margin-top: 10px;
+}
+
+.button-group {
+    text-align: center;
+    padding: 15px;
+}
+
+.ui-button {
+    background: #2196F3;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.ui-button.secondary {
+    background: #666;
+}
+
+.ui-button:hover {
+    opacity: 0.9;
 }
 
 .ui-datatable {
     background: #3a3a3a;
-    border: 1px solid #4a4a4a;
     border-radius: 8px;
+    margin: 20px 0;
+    border: 1px solid #4a4a4a;
 }
 
 .ui-datatable .ui-datatable-header {
     background: #4a4a4a;
-    color: #ffffff;
+    color: white;
     border: none;
 }
 
 .ui-datatable .ui-datatable-data tr {
     background: #3a3a3a;
-    color: #ffffff;
+    color: white;
 }
 
 .ui-datatable .ui-datatable-data tr:nth-child(even) {
     background: #404040;
 }
 
-.ui-datatable .ui-datatable-data td {
-    border-color: #4a4a4a;
-    color: #ffffff;
-}
-
-.ui-datatable .ui-datatable-scrollable-body {
-    background: #3a3a3a;
-}
-
 .ui-message {
     color: #f44336;
     font-size: 0.9em;
+    margin-top: 5px;
+}
+
+/* Стили для графика */
+line {
+    stroke: #ffffff;
+}
+
+text {
+    fill: #ffffff;
+    font-size: 12px;
+}
+
+#area path {
+    stroke: #ffffff;
+    stroke-width: 1;
 }
 
 @media (max-width: 768px) {
@@ -143,13 +154,18 @@ circle.miss {
         margin: 10px;
     }
 
-    .ui-panelgrid td {
-        display: block;
-        width: 100%;
+    .input-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
     }
 
-    .ui-selectoneradio .ui-grid-row > div {
-        display: inline-block;
-        margin-right: 10px;
+    .button-group {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .ui-button {
+        margin: 5px 0;
     }
 }
