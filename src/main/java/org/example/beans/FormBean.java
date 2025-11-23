@@ -14,9 +14,9 @@ import java.util.Date;
 @Getter
 public class FormBean implements Serializable {
 
-    private Integer x;
+    private Double x;
     private Double y;
-    private Double r;
+    private Integer r;
 
     private Double graphX;
     private Double graphY;

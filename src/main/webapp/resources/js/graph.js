@@ -1,116 +1,194 @@
-(function () {
+class GraphRenderer {
+    static CENTER_X = 210;
+    static CENTER_Y = 210;
+    static R_PIXELS = 170;
 
-    var CENTER_X = 210, CENTER_Y = 210, R_PIXELS = 170;
-
-    function getR() {
-        var el = document.getElementById('appForm:rValue');
-        var v = parseFloat(el.value);
-        if (isFinite(v) && v > 0) return v;
-        return NaN;
+    constructor(svgId) {
+        this.svgId = svgId;
+        this.svg = null;
+        this.RMax = this.getRMaxFromDOM();
     }
 
-    function getRMax() {
-        var max = 0;
+    init() {
+        const newSvg = document.getElementById(this.svgId);
+
+        if (this.svg && this.svg !== newSvg && this.onGraphClickBound) {
+            this.svg.removeEventListener('click', this.onGraphClickBound);
+        }
+
+        this.svg = newSvg;
+
+        if (this.svg && !this.svg.dataset.clickBound) {
+            this.onGraphClickBound = this.onGraphClick.bind(this);
+            this.svg.addEventListener('click', this.onGraphClickBound);
+            this.svg.dataset.clickBound = true;
+        }
+    }
+
+    getCurrentR() {
+        const el = document.getElementById('appForm:rValue');
+        const v = parseFloat(el?.value);
+        return (isFinite(v) && v > 0) ? v : NaN;
+    }
+
+    getRMaxFromDOM() {
+        let max = 0;
         document.querySelectorAll('#appForm\\:r input[type="radio"]').forEach(function (el) {
-            var v = Math.abs(parseFloat(el.value));
+            const v = Math.abs(parseFloat(el.value));
             if (isFinite(v) && v > max) max = v;
         });
-        return max > 0 ? max : 3;
+        return max > 0 ? max : 5;
     }
 
-    function unitScale() { return R_PIXELS / getRMax(); }
-    function toX(x) { return CENTER_X + unitScale() * x; }
-    function toY(y) { return CENTER_Y - unitScale() * y; }
+    get unitScale() {
+        return GraphRenderer.R_PIXELS / this.RMax;
+    }
 
-    function drawTicks() {
-        var g = document.getElementById('ticks');
+    toX(x) {
+        return GraphRenderer.CENTER_X + this.unitScale * x;
+    }
+
+    toY(y) {
+        return GraphRenderer.CENTER_Y - this.unitScale * y;
+    }
+
+    drawTicks() {
+        const g = this.svg.querySelector('#ticks');
         if (!g) return;
-        var Rm = getRMax(), out = '';
+        const R = this.getCurrentR();
 
-        function tickX(x, label) {
-            var px = toX(x);
-            out += '<g><line x1="'+px+'" y1="'+(CENTER_Y-4)+'" x2="'+px+'" y2="'+(CENTER_Y+4)+'" stroke="black"/>' +
-                '<text x="'+px+'" y="'+(CENTER_Y-8)+'" font-size="12" text-anchor="middle">'+label+'</text></g>';
-        }
-        function tickY(y, label) {
-            var py = toY(y);
-            out += '<g><line x1="'+(CENTER_X-4)+'" y1="'+py+'" x2="'+(CENTER_X+4)+'" y2="'+py+'" stroke="black"/>' +
-                '<text x="'+(CENTER_X+6)+'" y="'+(py+4)+'" font-size="12">'+label+'</text></g>';
+        if (!isFinite(R) || R <= 0) {
+            g.innerHTML = '';
+            return;
         }
 
-        tickX(-Rm, '-R'); tickX(-Rm/2, '-R/2'); tickX(Rm/2, 'R/2'); tickX(Rm, 'R');
-        tickY(Rm, 'R'); tickY(Rm/2, 'R/2'); tickY(-Rm/2, '-R/2'); tickY(-Rm, '-R');
+        const Rm = this.RMax;
+        let out = '';
+
+        const tickX = (x, label) => {
+            const px = this.toX(x);
+            out += `<g><line x1="${px}" y1="${GraphRenderer.CENTER_Y - 4}" x2="${px}" y2="${GraphRenderer.CENTER_Y + 4}" stroke="white"/>` +
+                `<text x="${px}" y="${GraphRenderer.CENTER_Y - 8}" font-size="12" text-anchor="middle" fill="white">${label}</text></g>`;
+        };
+        const tickY = (y, label) => {
+            const py = this.toY(y);
+            out += `<g><line x1="${GraphRenderer.CENTER_X - 4}" y1="${py}" x2="${GraphRenderer.CENTER_X + 4}" y2="${py}" stroke="white"/>` +
+                `<text x="${GraphRenderer.CENTER_X + 6}" y="${py + 4}" font-size="12" fill="white">${label}</text></g>`;
+        };
+
+        tickX(-R, '-R'); tickX(-R/2, '-R/2'); tickX(R/2, 'R/2'); tickX(R, 'R');
+        tickY(R, 'R'); tickY(R/2, 'R/2'); tickY(-R/2, '-R/2'); tickY(-R, '-R');
+
         g.innerHTML = out;
     }
 
-    function drawArea() {
-        var g = document.getElementById('area');
+    drawArea() {
+        const g = this.svg.querySelector('#area');
         if (!g) return;
-        var R = getR();
-        if (!isFinite(R) || R <= 0) { g.innerHTML = ''; return; }
+        const R = this.getCurrentR();
+        if (!isFinite(R) || R <= 0) {
+            g.innerHTML = '';
+            return;
+        }
 
-        var t1 = [toX(0), toY(0)];
-        var t2 = [toX(R/2), toY(0)];
-        var t3 = [toX(0), toY(R)];
-        var tri = 'M '+t1[0]+' '+t1[1]+' L '+t2[0]+' '+t2[1]+' L '+t3[0]+' '+t3[1]+' Z';
+        let dPaths = '';
+        const P1 = [this.toX(-R), this.toY(0)];
+        const P2 = [this.toX(0), this.toY(0)];
+        const P3 = [this.toX(0), this.toY(-R)];
+        const P4 = [this.toX(-R), this.toY(-R)];
+        dPaths += `M ${P1[0]} ${P1[1]} L ${P2[0]} ${P2[1]} L ${P3[0]} ${P3[1]} L ${P4[0]} ${P4[1]} Z`;
 
-        var rad = R/2;
-        var start = [toX(0), toY(rad)];
-        var end   = [toX(-rad), toY(0)];
-        var radPx = unitScale() * rad;
-        var arc = 'M '+CENTER_X+' '+CENTER_Y + ' L '+start[0]+' '+start[1] + ' A '+radPx+' '+radPx+' 0 0 0 '+end[0]+' '+end[1] + ' Z';
+        const T1 = [this.toX(-R), this.toY(0)];
+        const T2 = [this.toX(0), this.toY(R/2)];
+        const T3 = [this.toX(0), this.toY(0)];
+        dPaths += ` M ${T1[0]} ${T1[1]} L ${T2[0]} ${T2[1]} L ${T3[0]} ${T3[1]} Z`;
 
-        var A = [toX(0), toY(0)];
-        var B = [toX(R), toY(0)];
-        var C = [toX(R), toY(-R/2)];
-        var D = [toX(0), toY(-R/2)];
-        var rect = 'M '+A[0]+' '+A[1]+' L '+B[0]+' '+B[1]+' L '+C[0]+' '+C[1]+' L '+D[0]+' '+D[1]+' Z';
+        const rad = R / 2;
+        const radPx = this.unitScale * rad;
+        const arcStart = [this.toX(rad), this.toY(0)];
+        const arcEnd   = [this.toX(0), this.toY(-rad)];
 
-        g.innerHTML = '<path d="'+tri+'"></path>' + '<path d="'+arc+'"></path>' + '<path d="'+rect+'"></path>';
+        const arcPath = `M ${GraphRenderer.CENTER_X} ${GraphRenderer.CENTER_Y} ` +
+            `L ${arcStart[0]} ${arcStart[1]} ` +
+            `A ${radPx} ${radPx} 0 0 1 ${arcEnd[0]} ${arcEnd[1]} ` +
+            `Z`;
+        dPaths += ` ${arcPath}`;
+
+        g.innerHTML = `<path d="${dPaths}" fill="#8cc3ff" fill-opacity="0.45" stroke="white"></path>`;
     }
 
-    function positionPoints() {
-        document.querySelectorAll('#pointsLayer circle').forEach(function (el) {
-            var x = parseFloat(el.getAttribute('data-x'));
-            var y = parseFloat(el.getAttribute('data-y'));
-            if (isFinite(x) && isFinite(y)) {
-                el.setAttribute('cx', toX(x));
-                el.setAttribute('cy', toY(y));
+    positionPoints() {
+        if (!this.svg) return;
+
+        const r_curr = this.getCurrentR();
+        const hidePoints = !(isFinite(r_curr) && r_curr > 0);
+
+        this.svg.querySelectorAll('#pointsLayer circle').forEach(el => {
+            if (hidePoints) {
+                el.setAttribute('visibility', 'hidden');
+                return;
+            }
+
+            el.setAttribute('visibility', 'visible');
+
+            const x_coord = parseFloat(el.getAttribute('data-x'));
+            const y_coord = parseFloat(el.getAttribute('data-y'));
+            const r_sub = parseFloat(el.getAttribute('data-r'));
+
+            if (isFinite(x_coord) && isFinite(y_coord) && isFinite(r_sub) && r_sub !== 0) {
+
+                const x_abs_new = x_coord * (r_curr / r_sub);
+                const y_abs_new = y_coord * (r_curr / r_sub);
+
+                el.setAttribute('cx', this.toX(x_abs_new));
+                el.setAttribute('cy', this.toY(y_abs_new));
+            }
+            else if (isFinite(x_coord) && isFinite(y_coord)) {
+                el.setAttribute('cx', this.toX(x_coord));
+                el.setAttribute('cy', this.toY(y_coord));
             }
         });
     }
 
-    function sendPoint(x, y) {
-        rcSendPoint([{name:'x', value:x.toFixed(6)}, {name:'y', value:y.toFixed(6)}]);
-    }
-
-    function onGraphClick(evt) {
-        var svg = document.getElementById('graphSvg');
-        var rect = svg.getBoundingClientRect();
-        var px = evt.clientX - rect.left;
-        var py = evt.clientY - rect.top;
-        var S = unitScale();
-        var x = (px - CENTER_X) / S;
-        var y = (CENTER_Y - py) / S;
-        sendPoint(x, y);
-    }
-
-    function bindSvgClick() {
-        var svg = document.getElementById('graphSvg');
-        if (svg && !svg.__clickBound) {
-            svg.addEventListener('click', onGraphClick);
-            svg.__clickBound = true;
+    sendPoint(x, y) {
+        if (typeof rcSendPoint === 'function') {
+            rcSendPoint([{name:'x', value:x.toFixed(6)}, {name:'y', value:y.toFixed(6)}]);
         }
     }
 
-    function redrawAll() {
-        drawTicks();
-        drawArea();
-        positionPoints();
-        bindSvgClick();
+    onGraphClick(evt) {
+        const R = this.getCurrentR();
+        if (!this.svg || R <= 0) return;
+
+        const rect = this.svg.getBoundingClientRect();
+        const px = evt.clientX - rect.left;
+        const py = evt.clientY - rect.top;
+
+        const S = this.unitScale;
+
+        const x = (px - GraphRenderer.CENTER_X) / S;
+        const y = (GraphRenderer.CENTER_Y - py) / S;
+
+        this.sendPoint(x, y);
     }
 
-    window.redrawAll = redrawAll;
-    document.addEventListener('DOMContentLoaded', redrawAll);
+    redrawAll() {
+        this.init();
+        if (!this.svg) return;
 
-})();
+        this.drawTicks();
+        this.drawArea();
+        this.positionPoints();
+    }
+}
+
+let graphRendererInstance;
+
+document.addEventListener('DOMContentLoaded', () => {
+    graphRendererInstance = new GraphRenderer('graphSvg');
+    graphRendererInstance.redrawAll();
+});
+
+window.redrawAll = function() {
+    graphRendererInstance.redrawAll();
+};

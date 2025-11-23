@@ -1,24 +1,26 @@
 package org.example.service;
 
 public final class Geometry {
-
     private Geometry() {}
 
     public static boolean hit(double x, double y, double r) {
-        if (!(r > 0)) return false;
+        if (!(r > 0)) {
+            return false;
+        }
 
-        boolean tri = (x >= 0.0) && (y >= 0.0)
-                && (x <= r / 2.0)
-                && (y <= (-2.0 * x + r));
+        final double EPSILON = 1e-12;
 
-        double rr = r / 2.0;
-        boolean sec = (x <= 0.0) && (y >= 0.0)
-                && (x * x + y * y <= rr * rr + 1e-12);
+        final double rr = r / 2.0;
 
-        boolean rect = (x >= 0.0) && (y <= 0.0)
-                && (x <= r)
-                && (y >= -r / 2.0);
+        final boolean rect = (x <= 0.0) && (x >= -r)
+                && (y <= 0.0) && (y >= -r);
 
-        return tri || sec || rect;
+        final boolean tri = (x <= 0.0) && (y >= 0.0)
+                && (y <= x / 2.0 + r / 2.0 + EPSILON);
+
+        final boolean sec = (x >= 0.0) && (y <= 0.0)
+                && (x * x + y * y <= rr * rr + EPSILON);
+
+        return rect || tri || sec;
     }
 }

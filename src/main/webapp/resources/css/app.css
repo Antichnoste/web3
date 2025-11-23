@@ -99,11 +99,7 @@ h2, h3 {
 }
 
 .ui-button.secondary {
-    background: #666;
-}
-
-.ui-button:hover {
-    opacity: 0.9;
+    background: #18d37f;
 }
 
 .ui-datatable {
@@ -134,7 +130,6 @@ h2, h3 {
     margin-top: 5px;
 }
 
-/* Стили для графика */
 line {
     stroke: #ffffff;
 }

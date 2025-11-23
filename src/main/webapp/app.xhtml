@@ -17,13 +17,15 @@
             <h2>Проверка попадания точки в область</h2>
 
             <h:panelGroup id="graph" layout="block" styleClass="graph-wrap">
+
                 <svg id="graphSvg" width="420" height="420"
                      data-center-x="210" data-center-y="210">
 
-                    <line x1="210" y1="10" x2="210" y2="410" stroke="black"/>
-                    <line x1="10" y1="210" x2="410" y2="210" stroke="black"/>
+                    <line x1="210" y1="10" x2="210" y2="410" stroke="white"/>
+                    <line x1="10" y1="210" x2="410" y2="210" stroke="white"/>
 
                     <g id="ticks"></g>
+
                     <g id="area" fill="#49a8ff" fill-opacity="0.95" stroke="none"></g>
 
                     <g id="pointsLayer">
@@ -43,7 +45,7 @@
                 <div class="input-grid">
                     <div class="input-group">
                         <h:outputText value="X:"/><br/>
-                        <p:selectOneMenu id="x" value="#{form.x}">
+                        <p:selectOneMenu id="x" value="#{form.x}" style="width:90%">
                             <f:selectItems value="#{settings.XOptions}"/>
                         </p:selectOneMenu>
                         <p:message for="x"/>
@@ -62,8 +64,7 @@
                         <h:outputText value="R:"/><br/>
                         <p:selectOneRadio id="r" value="#{form.r}" layout="grid" columns="5">
                             <f:selectItems value="#{settings.ROptions}"/>
-                            <p:ajax update="graph rValue"
-                                    oncomplete="redrawAll();"/>
+                            <p:ajax update="graph rValue" oncomplete="redrawAll();"/>
                         </p:selectOneRadio>
                     </div>
                 </div>
@@ -93,7 +94,7 @@
             <p:dataTable id="results" value="#{results.data}" var="row"
                          scrollable="true" scrollHeight="260"
                          styleClass="block" rowIndexVar="i">
-                <p:column headerText="#" style="width:4em">#{i + 1}</p:column>
+                <p:column headerText="№" style="width:4em">#{results.data.size() - i}</p:column>
                 <p:column headerText="X">#{row.x}</p:column>
                 <p:column headerText="Y">#{row.y}</p:column>
                 <p:column headerText="R">#{row.r}</p:column>

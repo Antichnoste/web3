@@ -5,6 +5,9 @@ import lombok.Setter;
 import org.example.model.HitEntity;
 import org.example.service.JpaService;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Setter
@@ -23,7 +26,10 @@ public class ResultsBean{
     }
 
     public List<HitEntity> getData() {
-        if (data == null) reload();
+        if (data == null) {
+            reload();
+        }
+
         return data;
     }
 }
