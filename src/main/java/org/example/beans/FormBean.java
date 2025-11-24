@@ -2,6 +2,7 @@ package org.example.beans;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.example.service.CheckResultService;
 import org.example.service.Geometry;
 import org.example.service.JpaService;
 
@@ -21,7 +22,7 @@ public class FormBean implements Serializable {
     private Double graphX;
     private Double graphY;
 
-    private JpaService jpa;
+    private CheckResultService checkResultService;
     private ResultsBean results;
     private SettingsBean settings;
 
@@ -37,9 +38,9 @@ public class FormBean implements Serializable {
         graphY = null;
     }
 
-    private void persistAndRefresh(double px, double py, double pr) {
-        boolean hit = Geometry.hit(px, py, pr);
-        jpa.insertResult(px, py, pr, hit, LocalTime.now());
+    private void persistAndRefresh(double px, double py, int pr) {
+        checkResultService.checkAndPersist(px, py, pr);
+
         results.reload();
     }
 }

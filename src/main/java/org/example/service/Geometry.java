@@ -3,7 +3,7 @@ package org.example.service;
 public final class Geometry {
     private Geometry() {}
 
-    public static boolean hit(double x, double y, double r) {
+    public static boolean hit(double x, double y, int r) {
         if (!(r > 0)) {
             return false;
         }

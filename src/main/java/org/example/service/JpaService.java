@@ -8,21 +8,12 @@ import java.util.List;
 
 public class JpaService {
 
-    private static EntityManagerFactory buildEmf() {
-        return Persistence.createEntityManagerFactory("default");
-    }
-
     private static class EmfHolder {
-        static final EntityManagerFactory EMF = buildEmf();
+        static final EntityManagerFactory EMF = Persistence.createEntityManagerFactory("default");;
     }
 
-    private EntityManager em() {
-        return EmfHolder.EMF.createEntityManager();
-    }
-
-
-    public void insertResult(double x, double y, double r, boolean hit, LocalTime createdAt) {
-        EntityManager em = em();
+    public void insertResult(double x, double y, int r, boolean hit, LocalTime createdAt) {
+        EntityManager em = EmfHolder.EMF.createEntityManager();;
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -39,8 +30,9 @@ public class JpaService {
             em.close();
         }
     }
+
     public List<HitEntity> listLatest(int maxRows) {
-        EntityManager em = em();
+        EntityManager em = EmfHolder.EMF.createEntityManager();;
         try {
             return em.createQuery(
                             "SELECT h FROM HitEntity h ORDER BY h.createdAt DESC", HitEntity.class)

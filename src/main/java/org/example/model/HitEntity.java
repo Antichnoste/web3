@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalTime;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -16,11 +16,21 @@ public class HitEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private double x;
+    @Column(nullable = false)
     private double y;
-    private double r;
+    @Column(nullable = false)
+    private int r;
+    @Column(nullable = false)
     private boolean hit;
 
     @Column(nullable = false)
     private LocalTime createdAt;
+
+    public String formmatedCreatedAt(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+        return createdAt.format(formatter);
+    }
 }

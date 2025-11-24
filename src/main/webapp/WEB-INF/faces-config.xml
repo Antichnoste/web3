@@ -40,16 +40,26 @@
         <managed-bean-class>org.example.beans.FormBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
         <managed-property>
-            <property-name>jpa</property-name>
-            <value>#{jpaService}</value>
-        </managed-property>
-        <managed-property>
             <property-name>results</property-name>
             <value>#{results}</value>
         </managed-property>
         <managed-property>
             <property-name>settings</property-name>
             <value>#{settings}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>checkResultService</property-name>
+            <value>#{checkResultService}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>checkResultService</managed-bean-name>
+        <managed-bean-class>org.example.service.CheckResultService</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+        <managed-property>
+            <property-name>jpaService</property-name>
+            <value>#{jpaService}</value>
         </managed-property>
     </managed-bean>
 

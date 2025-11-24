@@ -16,6 +16,8 @@
 
             <h2>Проверка попадания точки в область</h2>
 
+            <span id="graphErrorDisplay" style="color: #ff5252; font-weight: bold; display: block; margin-bottom: 15px;"></span>
+
             <h:panelGroup id="graph" layout="block" styleClass="graph-wrap">
 
                 <svg id="graphSvg" width="420" height="420"
@@ -52,7 +54,7 @@
                     </div>
 
                     <div class="input-group">
-                        <h:outputText value="Y (−5..5):"/><br/>
+                        <h:outputText value="Y (−5..3):"/><br/>
                         <p:inputText id="y" value="#{form.y}" maxlength="12">
                             <f:validator validatorId="yValidator"/>
                             <p:ajax update="ymsg"/>
@@ -99,7 +101,7 @@
                 <p:column headerText="Y">#{row.y}</p:column>
                 <p:column headerText="R">#{row.r}</p:column>
                 <p:column headerText="Попадание"><h:outputText value="#{row.hit ? 'Да' : 'Нет'}"/></p:column>
-                <p:column headerText="Время">#{row.createdAt}</p:column>
+                <p:column headerText="Время">#{row.formmatedCreatedAt()}</p:column>
             </p:dataTable>
 
         </h:form>
