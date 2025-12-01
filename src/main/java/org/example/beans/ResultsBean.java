@@ -18,7 +18,6 @@ public class ResultsBean{
     @Getter
     private int maxRows = 2000;
 
-    @Getter
     private List<HitEntity> data;
 
     public void reload() {

@@ -1,0 +1,11 @@
+1) 	ssh -p 2222 -L 11623:localhost:11623 s466113@helios.cs.ifmo.ru
+2) 	cd tomcat/apache-tomcat-9.0.111
+3) 	./bin/startup.sh -- поднять apache-tomcat
+	./bin/shutdown.sh -- опустить apache-tomcat
+4)	http://localhost:11623/web3-1.0-SNAPSHOT/ -- тут будет наш сервер лежать
+
+----------Как загрузить war-архив-------------
+1) Удаляем из ~/tomcat/apache-tomcat-9.0.111/webapps наш прошлый war и его распокованый архив (пока это выглядит так area-app-1.0.0.war и area-app-1.0.0)  
+2) загружаем на хелиос новый war: scp_helios new.war
+3) на helios он будет лежать на ~/new.war, а нам нужно переместить его в ~/tomcat/apache-tomcat-9.0.111/webapps
+Всё, остальное надо просто запустить сервер

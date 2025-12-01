@@ -13,7 +13,7 @@ public class JpaService {
     }
 
     public void insertResult(double x, double y, int r, boolean hit, LocalTime createdAt) {
-        EntityManager em = EmfHolder.EMF.createEntityManager();;
+        EntityManager em = EmfHolder.EMF.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
@@ -32,7 +32,7 @@ public class JpaService {
     }
 
     public List<HitEntity> listLatest(int maxRows) {
-        EntityManager em = EmfHolder.EMF.createEntityManager();;
+        EntityManager em = EmfHolder.EMF.createEntityManager();
         try {
             return em.createQuery(
                             "SELECT h FROM HitEntity h ORDER BY h.createdAt DESC", HitEntity.class)
